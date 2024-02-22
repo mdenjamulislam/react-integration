@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Login = () => {
+    const { signinUser } = useContext(AuthContext);
 
     const handleLogin = (e) => {
         e.preventDefault();
-        const email = e.target.value.email;
-        const password = e.target.value.password;
-    }
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        signinUser(email, password)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
     return (
         <section className="w-full flex items-center justify-center">
             <div className="w-full md:w-96 bg-slate-600 drop-shadow-md rounded-2xl">

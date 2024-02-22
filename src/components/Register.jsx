@@ -4,13 +4,13 @@ import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
     const { createUser } = useContext(AuthContext);
-    console.log(createUser)
+    console.log(createUser);
 
     const handleRegister = (e) => {
         e.preventDefault();
-        const name = e.target.value.name;
-        const email = e.target.value.email;
-        const password = e.target.value.password;
+        // const name = e.target.value.name;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
 
         createUser(email, password)
             .then((result) => {
@@ -26,25 +26,25 @@ const Register = () => {
         <div className="w-full md:w-96 mx-auto bg-slate-600 drop-shadow-md rounded-2xl">
             <div className="p-5 space-y-5 md:space-y-8 bg-bgLight rounded-2xl">
                 <h2 className="text-xl md:text-3xl font-semibold text-white">Register An Account</h2>
-                <form onSubmit={handleRegister} className="space-y-4 text-white">
+                <form  onSubmit={handleRegister} className="space-y-4 text-white">
                     <div className="space-y-2">
-                        <label for="name" className="text-sm text-white">
+                        <label htmlFor ="name" className="text-sm text-white">
                             Name
                         </label>
-                        <input type="text" name="name" id="name" placeholder="Name" required className="w-full px-3.5 py-2 md:px-5 md:py-3 text-sm rounded-xl bg-white outline-none focus:border-accent focus:outline-none focus:bg-white" />
+                        <input type="text" name="name" id="name" placeholder="Name" required className="w-full px-3.5 py-2 md:px-5 md:py-3 text-sm rounded-xl text-gray-600 bg-white outline-none focus:border-accent focus:outline-none focus:bg-white" />
                     </div>
                     <div className="space-y-2">
-                        <label for="email" className="text-sm">
+                        <label htmlFor ="email" className="text-sm">
                             Email
                         </label>
-                        <input type="email" name="email" id="email" placeholder="Enter your email" required className="w-full px-3.5 py-2 md:px-5 md:py-3 text-sm rounded-xl bg-white outline-none focus:border-accent focus:outline-none focus:bg-white" />
+                        <input type="email" name="email" id="email" placeholder="Enter your email" required className="w-full px-3.5 py-2 md:px-5 md:py-3 text-sm rounded-xl text-gray-600 bg-white outline-none focus:border-accent focus:outline-none focus:bg-white" />
                     </div>
                     <div className="space-y-2">
-                        <label for="password" className="text-sm">
+                        <label htmlFor ="password" className="text-sm">
                             Password
                         </label>
-                        <input type="password" name="password" id="password" placeholder="Enter your password" required className="w-full px-3.5 py-2 md:px-5 md:py-3 text-sm rounded-xl bg-white outline-none focus:border-accent focus:outline-none focus:bg-white" />
-                        <label for="password" className="text-xs text-textColor">
+                        <input type="password" name="password" id="password" placeholder="Enter your password" required className="w-full px-3.5 py-2 md:px-5 md:py-3 text-sm rounded-xl text-gray-600 bg-white outline-none focus:border-accent focus:outline-none focus:bg-white" />
+                        <label htmlFor ="password" className="text-xs text-textColor">
                             (Password shuld be strong)
                         </label>
                     </div>
