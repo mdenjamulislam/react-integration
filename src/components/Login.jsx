@@ -9,7 +9,7 @@ const Login = () => {
         const password = e.target.value.password;
     }
     return (
-        <section className="w-full h-screen flex items-center justify-center">
+        <section className="w-full flex items-center justify-center">
             <div className="w-full md:w-96 bg-slate-600 drop-shadow-md rounded-2xl">
                 <div className="p-5 space-y-5 md:space-y-8 bg-bgLight rounded-2xl">
                     <h2 className="text-xl md:text-2xl font-semibold text-white">Login</h2>

@@ -1,25 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
+    const { createUser } = useContext(AuthContext);
+    console.log(createUser)
+
+    const handleRegister = (e) => {
+        e.preventDefault();
+        const name = e.target.value.name;
+        const email = e.target.value.email;
+        const password = e.target.value.password;
+
+        createUser(email, password)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch((error) => {
+                console.error("Error message", error.message);
+            });
+    };
+
     return (
         <div className="w-full md:w-96 mx-auto bg-slate-600 drop-shadow-md rounded-2xl">
             <div className="p-5 space-y-5 md:space-y-8 bg-bgLight rounded-2xl">
                 <h2 className="text-xl md:text-3xl font-semibold text-white">Register An Account</h2>
-                <form action="" className="space-y-4 text-white">
-                    <div className="flex flex-col md:flex-row gap-4 w-full">
-                        <div className="space-y-2">
-                            <label for="firstname" className="text-sm text-white">
-                                First Name
-                            </label>
-                            <input type="text" name="firstname" id="firstname" placeholder="First Name" required className="w-full px-3.5 py-2 md:px-5 md:py-3 text-sm rounded-xl bg-white outline-none focus:border-accent focus:outline-none focus:bg-white" />
-                        </div>
-                        <div className="space-y-2">
-                            <label for="lastname" className="text-sm">
-                                Last Name
-                            </label>
-                            <input type="text" name="lastname" id="lastname" placeholder="Last Name" required className="w-full px-3.5 py-2 md:px-5 md:py-3 text-sm rounded-xl bg-white outline-none focus:border-accent focus:outline-none focus:bg-white" />
-                        </div>
+                <form onSubmit={handleRegister} className="space-y-4 text-white">
+                    <div className="space-y-2">
+                        <label for="name" className="text-sm text-white">
+                            Name
+                        </label>
+                        <input type="text" name="name" id="name" placeholder="Name" required className="w-full px-3.5 py-2 md:px-5 md:py-3 text-sm rounded-xl bg-white outline-none focus:border-accent focus:outline-none focus:bg-white" />
                     </div>
                     <div className="space-y-2">
                         <label for="email" className="text-sm">
