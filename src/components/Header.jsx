@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Header = () => {
-    const navLinks = <>
-        <li>
-            <NavLink to="/home">Home</NavLink>
-        </li>
-        <li>
-            <NavLink to="/about">About</NavLink>
-        </li>
-        <li>
-            <NavLink to="/contact">Contact</NavLink>
-        </li>
-        <li>
-            <NavLink to="/blog">Blogs</NavLink>
-        </li>
-    </>
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                alert("Logout succesful!");
+            })
+            .catch((error) => {
+                console.error("Logout not successfully! Try again.", error.mesage);
+            });
+    };
+
+    const navLinks = (
+        <>
+            <li>
+                <NavLink to="/home">Home</NavLink>
+            </li>
+            <li>
+                <NavLink to="/about">About</NavLink>
+            </li>
+            <li>
+                <NavLink to="/contact">Contact</NavLink>
+            </li>
+            <li>
+                <NavLink to="/blog">Blogs</NavLink>
+            </li>
+        </>
+    );
 
     return (
         <header>
@@ -34,13 +49,24 @@ const Header = () => {
                     <a className="text-xl md:text-2xl font-bold">Rauth</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
-                        { navLinks}
-                    </ul>
+                    <ul className="menu menu-horizontal px-1">{navLinks}</ul>
                 </div>
                 <div className="navbar-end gap-2">
-                    <NavLink to="/login" className="btn">Login</NavLink>
-                    <NavLink to="/register" className="btn">Sing Up</NavLink>
+                    {user && <span>{user.email}</span>}
+                    {user ? (
+                        <NavLink onClick={handleLogOut} to="/login" className="btn">
+                            Log Out
+                        </NavLink>
+                    ) : (
+                        <div>
+                            <NavLink to="/login" className="btn">
+                                Login
+                            </NavLink>
+                            <NavLink to="/register" className="btn">
+                                Sing Up
+                            </NavLink>
+                        </div>
+                    )}
                 </div>
             </nav>
         </header>
