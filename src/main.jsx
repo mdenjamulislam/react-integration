@@ -8,6 +8,8 @@ import Roots from "./components/Roots";
 import Home from "./components/Home";
 import ErrorPage from "./components/ErrorPage";
 import AuthProvider from "./provider/AuthProvider";
+import Orders from "./components/Orders";
+import PrivateRoute from "./route/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
                 path: "/home",
                 element: <Home />,
             },
+            {
+                path: "/orders",
+                element: <PrivateRoute><Orders/></PrivateRoute>
+            }
         ],
     },
 ]);

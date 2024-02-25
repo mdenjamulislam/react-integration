@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -8,7 +10,7 @@ const Header = () => {
     const handleLogOut = () => {
         logOut()
             .then(() => {
-                alert("Logout succesful!");
+                toast("Logout Succuessful!");
             })
             .catch((error) => {
                 console.error("Logout not successfully! Try again.", error.mesage);
@@ -28,6 +30,9 @@ const Header = () => {
             </li>
             <li>
                 <NavLink to="/blog">Blogs</NavLink>
+            </li>
+            <li>
+                <NavLink to="/orders">Orders</NavLink>
             </li>
         </>
     );
@@ -52,11 +57,36 @@ const Header = () => {
                     <ul className="menu menu-horizontal px-1">{navLinks}</ul>
                 </div>
                 <div className="navbar-end gap-2">
-                    {user && <span>{user.email}</span>}
                     {user ? (
-                        <NavLink onClick={handleLogOut} to="/login" className="btn">
-                            Log Out
-                        </NavLink>
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost">
+                                <div className="avatar btn btn-circle">
+                                    <div className="w-10 rounded-full">
+                                        <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col items-start gap-1">
+                                    <span>Enjamul</span>
+                                    <span className="text-xs">{user.email}</span>
+                                </div>
+                            </div>
+                            <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                                <li>
+                                    <a className="justify-between">
+                                        Profile
+                                        <span className="badge">New</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <NavLink to="/orders">Order History</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink onClick={handleLogOut} to="/login">
+                                        Log Out
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </div>
                     ) : (
                         <div>
                             <NavLink to="/login" className="btn">
@@ -69,6 +99,7 @@ const Header = () => {
                     )}
                 </div>
             </nav>
+            <ToastContainer/>
         </header>
     );
 };
