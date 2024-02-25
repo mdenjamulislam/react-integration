@@ -10,12 +10,13 @@ import ErrorPage from "./components/ErrorPage";
 import AuthProvider from "./provider/AuthProvider";
 import Orders from "./components/Orders";
 import PrivateRoute from "./route/PrivateRoute";
+import Profile from "./components/Profile";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Roots />,
-        errorPage: <ErrorPage />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/login",
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: "/orders",
                 element: <PrivateRoute><Orders/></PrivateRoute>
+            },
+            {
+                path: "/profile",
+                element: <Profile/>
             }
         ],
     },
